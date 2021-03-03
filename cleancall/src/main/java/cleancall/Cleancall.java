@@ -1,12 +1,6 @@
 package cleancall;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.PostPersist;
-import javax.persistence.PreRemove;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 import cleancall.external.Cleanmanage;
 import cleancall.external.CleanmanageService;
@@ -27,10 +21,7 @@ public class Cleancall {
 	
     @PostPersist
     public void onPostPersist(){
-        Cleancalled Cleancalled = new Cleancalled();
-        BeanUtils.copyProperties(this, Cleancalled);
-        Cleancalled.publishAfterCommit();
-    	
+
     	System.out.println("휴대폰번호 " + getTel());
         System.out.println("addr " + getAddr());
         System.out.println("호출상태 " + getStatus());
@@ -55,7 +46,11 @@ public class Cleancall {
 	        CleancalllApplication.applicationContext.getBean(CleanmanageService.class).cleanManageCall(cleanmanage);
 		}
 
-    }
+//		Cleancalled Cleancalled = new Cleancalled();
+//		BeanUtils.copyProperties(this, Cleancalled);
+//		Cleancalled.publishAfterCommit();
+
+	}
 
 	@PreRemove
 	public void onPreRemove(){
